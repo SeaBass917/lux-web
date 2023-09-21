@@ -1,0 +1,46 @@
+* {
+  background-color: rgb(36, 36, 36);
+}
+
+.TopNavBar {
+  height: 96px;
+  display: flex;
+  flex-direction: row;
+}
+.TopNavBar,
+.TopNavBar div,
+.TopNavBar h1 {
+  background-color: #4C4B6A;
+}
+
+.NavSector{
+  width: 195px;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+#logoImg {
+  width: 50px;
+  height: 50px;
+  margin: 20px;
+}
+#logoText {
+  color: #C5A0FC;
+}
+
+.NavTab {
+  justify-content: center;
+  border-bottom: 5px solid #C5A0FC;
+}
+.NavTab:hover {
+  border-bottom: 10px solid #D8D7FF;
+}
+
+#quickActions {
+  margin-left: auto;
+}
+
+#navPaddingEnd {
+  margin-right: 0px;
+}

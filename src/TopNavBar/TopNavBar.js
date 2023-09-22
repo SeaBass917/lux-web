@@ -1,6 +1,5 @@
 import "./TopNavBar.css";
 import logo from "../assets/imgs/tibix-logo.png";
-import profileIcon from "./profile.svg";
 
 function TopNavBar() {
   return (

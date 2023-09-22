@@ -1,9 +1,17 @@
 import { render, screen } from "@testing-library/react";
-import App from "./ReactDemo";
+import TopNavBar from "./TopNavBar";
 
-test("Where tests go", () => {
-  expect(true);
-  // render(<App />);
-  // const linkElement = screen.getByText(/learn react/i);
-  // expect(linkElement).toBeInTheDocument();
+test("Tab Title Text Formatting", () => {
+  render(<TopNavBar />);
+  const tabEles = document.getElementsByClassName("NavTab");
+  expect(tabEles).toBeDefined();
+
+  for (let tabEle of tabEles) {
+    const text = tabEle.textContent;
+    // Text must be
+    //   - Alphabetical
+    //   - Title Case
+    //   - Between [3,6] character long
+    expect(text).toMatch(/^[A-Z][a-z]{2,5}$/);
+  }
 });

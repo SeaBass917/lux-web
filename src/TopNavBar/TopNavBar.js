@@ -6,8 +6,8 @@ function TopNavBar() {
     <div className="TopNavBar">
       <div className="NavSector" id="navPaddingBegin"></div>
       <div className="NavSector" id="logo">
-        <img src={logo} id="logoImg"></img>
-        <h1 id="logoText">Tibix</h1>
+        <img src={logo} id="logoImg" alt="Lux Logo"></img>
+        <h1 id="logoText">Lux</h1>
       </div>
       <div className="NavSector NavTab NavSelected" id="video">
         <div>
@@ -30,7 +30,7 @@ function TopNavBar() {
         </div>
       </div>
       <div className="NavSector" id="quickActions">
-        <svg
+        {/* <svg
           fill="#000000"
           height="30px"
           width="30px"
@@ -46,8 +46,8 @@ function TopNavBar() {
 			S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7
 			S381.9,104.65,381.9,203.25z"
           />
-        </svg>
-        <svg
+        </svg> */}
+        {/*<svg
           fill="#000000"
           height="30px"
           width="30px"
@@ -75,7 +75,7 @@ function TopNavBar() {
 				c-18.31,15.549-30.035,37.115-33.265,60.563c-33.789-27.77-55.378-69.868-55.378-116.915C49.788,82.869,117.658,15,201.08,15
 				c83.423,0,151.292,67.869,151.292,151.292C352.372,213.345,330.778,255.448,296.981,283.218z"
           />
-        </svg>
+        </svg>*/}
       </div>
       <div className="NavSector" id="navPaddingEnd"></div>
     </div>

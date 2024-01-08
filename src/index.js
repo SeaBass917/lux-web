@@ -1,14 +1,17 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./font.css";
 import "./index.css";
-import TopNavBar from "./TopNavBar/TopNavBar";
-import VideoHomepage from "./VideoHomepage/VideoHomepage";
+
+import { AuthProvider } from "./Auth/AuthContext";
+import LandingPage from "./LandingPage/LandingPage";
+
+// Create a context
+export const AuthContext = createContext();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <TopNavBar />
-    <VideoHomepage />
-  </React.StrictMode>
+  <AuthProvider>
+    <LandingPage />
+  </AuthProvider>
 );

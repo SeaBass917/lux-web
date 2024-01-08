@@ -1,4 +1,4 @@
-h1, h2, h3, h4, div, img {
+.TopNavBar h1, h2, h3, h4, div, img {
   background-color: inherit;
 }
 
@@ -28,14 +28,14 @@ h1, h2, h3, h4, div, img {
   color: #C5A0FC;
 }
 
-h1, h2, h3, h4 {
+.TopNavBar h1, h2, h3, h4 {
   color: rgba(249, 249, 255, 0.60);
 }
 .NavTab {
   display: flex;
   flex-direction: column;
-  align-items: end;
-  justify-content: end;
+  align-items: flex-end;
+  justify-content: flex-end;
   border-bottom: 5px solid #C5A0FC;
 }
 .NavTab div {

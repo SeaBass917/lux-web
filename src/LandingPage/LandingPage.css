@@ -1,0 +1,54 @@
+.LandingPage {
+  background-image: linear-gradient(#1A1A22, #23232b, #555564);
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  height: 100vh;
+}
+
+.LandingPage h1 {
+  color: #C5A0FC;
+  font-size: 12vw;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.LandingPage form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 300px;
+  gap: 20px;
+}
+
+.LandingPage input {
+  padding: 10px;
+  font-size: large;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #0000001a;
+}
+
+.LandingPage button {
+  padding: 10px;
+  font-size: large;
+  border: none;
+  border-radius: 5px;
+  background-color: #C5A0FC;
+  color: #0e0b12;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.LandingPage button:hover {
+  background-color: #0056b3;
+}
+
+p#errorMessage {
+  color: #e57373;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+}

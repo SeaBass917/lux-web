@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { AuthContext } from "../Auth/AuthContext";
 import { getPepper, getAuthToken } from "../Server/ServerInterface";
 import "./LandingPage.css";
@@ -15,7 +15,7 @@ function LandingPage() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const textFieldServerRef = useRef();
   const textFieldPasswordRef = useRef();
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   /**
    * Handler so that the TextFields don't submit on enter, but instead
@@ -127,9 +127,19 @@ function LandingPage() {
     // Get the pepper for hashing the password
     getPepper(address)
       .then((pepper) => {
+        // Store the pepper and server address in the auth context
+        setAuth({
+          pepper: pepper,
+          server: address,
+        });
+
         // Get the auth token
         getAuthToken(address, password, pepper)
           .then((authToken) => {
+            setAuth({
+              token: authToken,
+            });
+
             // Redirect to the video homepage
             // window.location.href = "/video";
           })
@@ -141,6 +151,19 @@ function LandingPage() {
         setAlertText(error.message);
       });
   }
+
+  // When the page loads, check if the user is already logged in.
+  // If they are, redirect them to the video homepage.
+  useEffect(() => {
+    // Loa the last successful server address from local storage
+    if (auth.server) {
+      textFieldServerRef.current.value = auth.server;
+    }
+
+    // if (auth.token) {
+    //   window.location.href = "/video";
+    // }
+  }, [auth]);
 
   const theme = useTheme();
   return (

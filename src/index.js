@@ -1,5 +1,5 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import React, { createContext, useState } from "react";
+import { ThemeProvider } from "@mui/material";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import "./font.css";
 import "./index.css";

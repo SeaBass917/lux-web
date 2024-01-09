@@ -10,9 +10,15 @@ export const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem("pepper", auth.pepper);
-    localStorage.setItem("token", auth.token);
-    localStorage.setItem("server", auth.server);
+    if (auth.pepper) {
+      localStorage.setItem("pepper", auth.pepper);
+    }
+    if (auth.token) {
+      localStorage.setItem("token", auth.token);
+    }
+    if (auth.server) {
+      localStorage.setItem("server", auth.server);
+    }
   }, [auth]);
 
   return (

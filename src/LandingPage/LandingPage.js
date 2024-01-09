@@ -1,31 +1,27 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { AuthContext } from "../Auth/AuthContext";
 import "./LandingPage.css";
 
+import { useTheme } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import Collapse from "@mui/material/Collapse";
+
 function LandingPage() {
+  const [alertText, setAlertText] = useState("");
+  const [isServerValid, setIsServerValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const textFieldServerRef = useRef();
+  const textFieldPasswordRef = useRef();
   const { setAuth } = useContext(AuthContext);
 
-  /**
-   * Set the text input to the error state.
-   * Red border red text
-   * @param {HTMLInputElement} inputElem
-   * @returns {void}
-   */
-  function setInputToErrorState(inputElem) {
-    inputElem.style.boxShadow = "0 0 20px #e57373";
-    inputElem.style.color = "#e57373";
-  }
-
-  /**
-   * Set the text input to the default state.
-   * No border, black text
-   * @param {HTMLInputElement} inputElem
-   * @returns {void}
-   */
-  function setInputToDefaultState(inputElem) {
-    inputElem.style.boxShadow = "0px 0px 10px #0000001a";
-    inputElem.style.color = "";
-  }
+  const handleKeyDown = (event, nextInput) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      nextInput.current.focus();
+    }
+  };
 
   /**
    * Verify that the server text fits the requirements for a server address.
@@ -34,13 +30,11 @@ function LandingPage() {
    * @returns {bool}  True if the server text is valid, false otherwise.
    */
   function validateServer() {
-    let errorStr = "";
-
     // Get references to the required divs
-    const errMsgElem = document.getElementById("errorMessage");
     const serverTextInput = document.getElementById("serverTextInput");
-    if (errMsgElem === null || serverTextInput === null) {
+    if (serverTextInput === null) {
       console.error("Could not find required elements.");
+      setIsServerValid(false);
       return false;
     }
 
@@ -49,28 +43,22 @@ function LandingPage() {
 
     // Check that anything was provided
     if (serverText === "") {
-      errorStr = "Please provide a server address.";
-    }
-
-    // Test that the IP is an ip4v
-    const ipRegExp = RegExp(/^(\d{1,3}.){3}\d{1,3}$/);
-    if (!ipRegExp.test(serverText)) {
-      errorStr = "Please provide a valid IPv4 address.";
-    }
-
-    // If there is a validation error, set the error message.
-    // And draw the border around the text input as red.
-    if (errorStr !== "") {
-      errMsgElem.innerHTML = errorStr;
-      setInputToErrorState(serverTextInput);
+      setAlertText("Please provide a server address.");
+      setIsServerValid(false);
       return false;
     }
 
-    // If everything was valid, then clear any error messages or borders.
-    // And return true.
-    errMsgElem.innerHTML = "";
-    setInputToDefaultState(serverTextInput);
+    // Test that the IP is an ip4v address
+    if (!RegExp(/^(\d{1,3}.){3}\d{1,3}$/).test(serverText)) {
+      setAlertText("Please provide a valid IPv4 address.");
+      setIsServerValid(false);
+      return false;
+    }
 
+    // If everything was valid, then clear the error borders.
+    // And return true.
+    setIsServerValid(true);
+    if (isPasswordValid) setAlertText("");
     return true;
   }
 
@@ -81,13 +69,11 @@ function LandingPage() {
    * @returns {bool}  True if the password text is valid, false otherwise.
    */
   function validatePassword() {
-    let errorStr = "";
-
     // Get references to the required divs
-    const errMsgElem = document.getElementById("errorMessage");
     const passwordTextInput = document.getElementById("passwordTextInput");
-    if (errMsgElem === null || passwordTextInput === null) {
-      console.error("Could not find required elements.");
+    if (passwordTextInput === null) {
+      console.error("Could not find required element(s).");
+      setIsPasswordValid(false);
       return false;
     }
 
@@ -95,23 +81,18 @@ function LandingPage() {
     const passwordText = passwordTextInput.value.trim();
 
     // Check that anything was provided
-    if (passwordText === "") {
-      errorStr = "Please provide a password.";
-    }
-
     // If there is a validation error, set the error message.
     // And draw the border around the text input as red.
-    if (errorStr !== "") {
-      errMsgElem.innerHTML = errorStr;
-      setInputToErrorState(passwordTextInput);
+    if (passwordText === "") {
+      setAlertText("Please provide a password.");
+      setIsPasswordValid(false);
       return false;
     }
 
-    // If everything was valid, then clear any error messages or borders.
+    // If everything was valid, then clear the error borders.
     // And return true.
-    errMsgElem.innerHTML = "";
-    setInputToDefaultState(passwordTextInput);
-
+    setIsPasswordValid(true);
+    if (isServerValid) setAlertText("");
     return true;
   }
 
@@ -134,29 +115,48 @@ function LandingPage() {
     console.log(event);
   }
 
+  const theme = useTheme();
   return (
     <div className="LandingPage">
-      <h1>
+      <h1
+        style={{
+          color: theme.palette.primary.main,
+        }}
+      >
         Lux <br /> Media Server
       </h1>
 
       <form onSubmit={submitCb}>
-        <input
+        <TextField
           id="serverTextInput"
-          type="text"
-          placeholder="Server Address"
-          onFocus={(event) => setInputToDefaultState(event.target)}
+          label="Server Address"
+          inputRef={textFieldServerRef}
+          error={!isServerValid}
+          onFocus={(event) => {
+            setIsServerValid(true);
+          }}
           onBlur={validateServer}
+          onKeyDown={(event) => handleKeyDown(event, textFieldPasswordRef)}
         />
-        <input
+        <TextField
           id="passwordTextInput"
           type="password"
-          placeholder="Password"
-          onFocus={(event) => setInputToDefaultState(event.target)}
+          label="Password"
+          inputRef={textFieldPasswordRef}
+          error={!isPasswordValid}
+          onFocus={(event) => {
+            setIsPasswordValid(true);
+          }}
           onBlur={validatePassword}
         />
-        <button type="submit">Submit</button>
-        <p id="errorMessage"></p>
+        <Button type="submit" variant="contained" color="secondary">
+          Submit
+        </Button>
+        <Collapse in={alertText !== ""}>
+          <Alert severity="error" variant="outlined">
+            {alertText}
+          </Alert>
+        </Collapse>
       </form>
     </div>
   );

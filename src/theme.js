@@ -1,0 +1,30 @@
+import { createTheme } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#C5A0FC",
+      light: "#E4D1FF",
+      dark: "#37364F",
+      contrastText: "#F9F9FF",
+    },
+    secondary: {
+      main: "#5A5884",
+      light: "#9C99F0",
+      dark: "#4C4B6A",
+      contrastText: "#F9F9FF",
+    },
+    text: {
+      primary: "#F9F9FF",
+      secondary: "#F9F9FF",
+    },
+    error: {
+      main: "#f76666",
+    },
+  },
+  typography: {
+    fontFamily: ["Satoshi", "Roboto", "sans-serif"].join(","),
+  },
+});
+
+export default theme;

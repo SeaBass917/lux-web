@@ -42,10 +42,14 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.8",
-    "babel-jest": "^29.7.0",
-    "@babel/plugin-proposal-private-property-in-object": "^7.23.7"
+    "babel-jest": "^29.7.0"
   }
 }

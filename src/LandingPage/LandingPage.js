@@ -37,7 +37,7 @@ function LandingPage() {
    * input as red.
    * @returns {bool}  True if the server text is valid, false otherwise.
    */
-  function validateServer() {
+  function validateServer(setAlert = true) {
     // Get references to the required divs
     const serverTextInput = document.getElementById("serverTextInput");
     if (serverTextInput === null) {
@@ -51,14 +51,14 @@ function LandingPage() {
 
     // Check that anything was provided
     if (serverText === "") {
-      setAlertText("Please provide a server address.");
+      if (setAlert) setAlertText("Please provide a server address.");
       setIsServerValid(false);
       return false;
     }
 
     // Test that the IP is an ip4v address
     if (!RegExp(/^(\d{1,3}.){3}\d{1,3}$/).test(serverText)) {
-      setAlertText("Please provide a valid IPv4 address.");
+      if (setAlert) setAlertText("Please provide a valid IPv4 address.");
       setIsServerValid(false);
       return false;
     }
@@ -76,7 +76,7 @@ function LandingPage() {
    * input as red.
    * @returns {bool}  True if the password text is valid, false otherwise.
    */
-  function validatePassword() {
+  function validatePassword(setAlert = true) {
     // Get references to the required divs
     const passwordTextInput = document.getElementById("passwordTextInput");
     if (passwordTextInput === null) {
@@ -92,7 +92,7 @@ function LandingPage() {
     // If there is a validation error, set the error message.
     // And draw the border around the text input as red.
     if (passwordText === "") {
-      setAlertText("Please provide a password.");
+      if (setAlert) setAlertText("Please provide a password.");
       setIsPasswordValid(false);
       return false;
     }
@@ -112,6 +112,7 @@ function LandingPage() {
    */
   function submitCb(event) {
     // Prevent the page from refreshing.
+    // And flag the submit button event so that validations can run.
     event.preventDefault();
 
     // Run validations on the server address and password.
@@ -161,7 +162,6 @@ function LandingPage() {
           onFocus={(event) => {
             setIsServerValid(true);
           }}
-          onBlur={validateServer}
           onKeyDown={(event) => handleEnterKeyDown(event, textFieldPasswordRef)}
         />
         <TextField
@@ -173,7 +173,6 @@ function LandingPage() {
           onFocus={(event) => {
             setIsPasswordValid(true);
           }}
-          onBlur={validatePassword}
         />
         <Button type="submit" variant="contained" color="secondary">
           Submit

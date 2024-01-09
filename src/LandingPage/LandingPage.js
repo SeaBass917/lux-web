@@ -141,7 +141,7 @@ function LandingPage() {
             });
 
             // Redirect to the video homepage
-            // window.location.href = "/video";
+            window.location.href = "/video";
           })
           .catch((error) => {
             setAlertText(error?.response?.data);
@@ -160,9 +160,10 @@ function LandingPage() {
       textFieldServerRef.current.value = auth.server;
     }
 
-    // if (auth.token) {
-    //   window.location.href = "/video";
-    // }
+    if (auth.token) {
+      // Redirect to the video homepage
+      window.location.href = "/video";
+    }
   }, [auth]);
 
   const theme = useTheme();

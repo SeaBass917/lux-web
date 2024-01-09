@@ -1,21 +1,21 @@
-import { ThemeProvider } from "@mui/material";
-import React, { createContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
+
+import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "@mui/material";
+import { AuthProvider } from "./Auth/AuthContext";
+
 import "./font.css";
 import "./index.css";
 import theme from "./theme";
-
-import { AuthProvider } from "./Auth/AuthContext";
-import LandingPage from "./LandingPage/LandingPage";
+import router from "./router";
 
 // Create a context
-export const AuthContext = createContext();
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
     <ThemeProvider theme={theme}>
-      <LandingPage />
+      <RouterProvider router={router} />
     </ThemeProvider>
   </AuthProvider>
 );

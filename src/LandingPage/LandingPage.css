@@ -19,3 +19,8 @@
   width: 300px;
   gap: 20px;
 }
+
+.LandingPage .MuiAlert-message {
+  color: #fccdcd;
+  font-size: medium;
+}

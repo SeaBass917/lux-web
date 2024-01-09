@@ -1,5 +1,6 @@
 import React, { useContext, useState, useRef } from "react";
 import { AuthContext } from "../Auth/AuthContext";
+import { getPepper, getAuthToken } from "../Server/ServerInterface";
 import "./LandingPage.css";
 
 import { useTheme } from "@mui/material/styles";
@@ -16,12 +17,19 @@ function LandingPage() {
   const textFieldPasswordRef = useRef();
   const { setAuth } = useContext(AuthContext);
 
-  const handleKeyDown = (event, nextInput) => {
+  /**
+   * Handler so that the TextFields don't submit on enter, but instead
+   * move to the next input.
+   * @param {React.KeyboardEvent<HTMLDivElement>} event
+   * @param {React.RefObject<HTMLInputElement>} nextInput
+   * @returns {void}
+   */
+  function handleEnterKeyDown(event, nextInput) {
     if (event.key === "Enter") {
       event.preventDefault();
       nextInput.current.focus();
     }
-  };
+  }
 
   /**
    * Verify that the server text fits the requirements for a server address.
@@ -111,8 +119,26 @@ function LandingPage() {
       return;
     }
 
-    // TODO: Validate the inputs.
-    console.log(event);
+    // Get the address and password
+    const address = textFieldServerRef.current.value.trim();
+    const password = textFieldPasswordRef.current.value.trim();
+
+    // Get the pepper for hashing the password
+    getPepper(address)
+      .then((pepper) => {
+        // Get the auth token
+        getAuthToken(address, password, pepper)
+          .then((authToken) => {
+            // Redirect to the video homepage
+            // window.location.href = "/video";
+          })
+          .catch((error) => {
+            setAlertText(error?.response?.data);
+          });
+      })
+      .catch((error) => {
+        setAlertText(error.message);
+      });
   }
 
   const theme = useTheme();
@@ -136,7 +162,7 @@ function LandingPage() {
             setIsServerValid(true);
           }}
           onBlur={validateServer}
-          onKeyDown={(event) => handleKeyDown(event, textFieldPasswordRef)}
+          onKeyDown={(event) => handleEnterKeyDown(event, textFieldPasswordRef)}
         />
         <TextField
           id="passwordTextInput"

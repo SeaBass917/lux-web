@@ -43,13 +43,19 @@ beforeEach(() => {
  */
 test("Title is present", () => {
   const authValue = {
-    auth: { token: "test-token", server: "123.456.789.0", pepper: "EwPepper" },
+    auth: {
+      token: "test-token",
+      server: "123.456.789.0",
+      pepper: "$2b$10$EwPepper00000000000000",
+    },
     setAuth: jest.fn(),
   };
 
-  // When getPepper is called, it will resolve to 'EwPepper'
-  getPepper.mockResolvedValue("EwPepper");
-  getAuthToken.mockResolvedValue("WowSuchToken");
+  // When getPepper is called, it will resolve to '$2b$10$EwPepper00000000000000'
+  getPepper.mockResolvedValue("$2b$10$EwPepper00000000000000");
+  getAuthToken.mockResolvedValue(
+    "WowSuchToken123456789123456789123456789123456789"
+  );
 
   const { getByText } = renderWithAuthContext(<LandingPage />, authValue);
 
@@ -67,8 +73,8 @@ test("Loads last known Server Address", () => {
    */
 
   const serverMock = "123.456.789.0";
-  const pepperMock = "EwPepper";
-  const tokenMock = "WowSuchToken";
+  const pepperMock = "$2b$10$EwPepper00000000000000";
+  const tokenMock = "WowSuchToken123456789123456789123456789123456789";
 
   // Mock the local storage
   // Set the last known server address to something
@@ -89,7 +95,7 @@ test("Loads last known Server Address", () => {
     setAuth: jest.fn(),
   };
 
-  // When getPepper is called, it will resolve to 'EwPepper'
+  // When getPepper is called, it will resolve to '$2b$10$EwPepper00000000000000'
   getPepper.mockResolvedValue(pepperMock);
   getAuthToken.mockResolvedValue(tokenMock);
 

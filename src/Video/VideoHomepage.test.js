@@ -12,7 +12,11 @@ const renderWithAuthContext = (component, authValue) => {
 
 test("todo", () => {
   const authValue = {
-    auth: { token: "test-token", server: "123.456.789.0", pepper: "EwPepper" },
+    auth: {
+      token: "test-token",
+      server: "123.456.789.0",
+      pepper: "$2b$10$EwPepper00000000000000",
+    },
     setAuth: jest.fn(),
   };
   const { getByText } = renderWithAuthContext(<VideoHomepage />, authValue);

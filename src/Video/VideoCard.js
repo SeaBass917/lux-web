@@ -2,21 +2,28 @@ import { useTheme } from "@emotion/react";
 import { getVideoCoverURL } from "../Server/ServerInterface";
 import "./VideoCard.css";
 
-function VideoCard({ title, yearStart, auth, width, height, margin }) {
+// Constants for the child cards
+const cardWidth = 400;
+const cardHeight = 300;
+const cardMarginRight = 16;
+const cardMarginBottom = 16;
+
+function VideoCard({ title, yearStart, auth }) {
   const theme = useTheme();
 
   return (
     <div
       className="VideoCard"
       style={{
-        width: `${width}px`,
-        minWidth: `${width}px`,
-        maxWidth: `${width}px`,
-        height: `${height}px`,
-        marginRight: `${margin}px`,
+        width: `${cardWidth}px`,
+        minWidth: `${cardWidth}px`,
+        maxWidth: `${cardWidth}px`,
+        height: `${cardHeight}px`,
+        marginRight: `${cardMarginRight}px`,
         display: "flex",
         flexDirection: "column",
         userSelect: "none",
+        marginBottom: `${cardMarginBottom}px`,
       }}
     >
       <img
@@ -51,12 +58,13 @@ function VideoCard({ title, yearStart, auth, width, height, margin }) {
         >
           <h2
             style={{
-              margin: "20px 0 0 0",
+              margin: "10px 0 0 0",
               padding: "0",
               textAlign: "left",
               alignSelf: "flex-start",
               width: "100%",
               color: theme.palette.text.primary,
+              whiteSpace: "nowrap",
             }}
           >
             {title}
@@ -64,7 +72,7 @@ function VideoCard({ title, yearStart, auth, width, height, margin }) {
           {yearStart && (
             <h2
               style={{
-                margin: "20px 0 0 5px",
+                margin: "10px 0 0 5px",
                 padding: "0",
                 textAlign: "left",
                 alignSelf: "flex-start",
@@ -81,4 +89,4 @@ function VideoCard({ title, yearStart, auth, width, height, margin }) {
   );
 }
 
-export default VideoCard;
+export { VideoCard, cardWidth, cardHeight, cardMarginRight };

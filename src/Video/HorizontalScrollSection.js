@@ -1,10 +1,12 @@
-import { Button } from "@mui/material";
-import { AuthContext } from "../Auth/AuthContext";
-import "./HorizontalScrollSection.css";
 import { useContext, useEffect, useRef, useState } from "react";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import VideoCard from "../Video/VideoCard";
 import { useTheme } from "@emotion/react";
+
+import { Button } from "@mui/material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+
+import { AuthContext } from "../Auth/AuthContext";
+import { VideoCard, cardWidth, cardHeight, cardMarginRight } from "./VideoCard";
+import "./HorizontalScrollSection.css";
 
 function HorizontalScrollSection({ title, metaDataList }) {
   const scrollContainerRef = useRef(null);
@@ -17,11 +19,6 @@ function HorizontalScrollSection({ title, metaDataList }) {
   // Constants for the component
   const containerPadding = 32;
 
-  // Constants for the child cards
-  const cardWidth = 400;
-  const cardHeight = 300;
-  const cardMargin = 16;
-
   /**
    * Scroll the container by a fixed amount.
    * If left is true, scroll left. Otherwise, scroll right.
@@ -31,7 +28,7 @@ function HorizontalScrollSection({ title, metaDataList }) {
   const scrollFixedDistance = (left = false) => {
     const factor = left ? -1 : 1;
     const posCurrent = scrollContainerRef.current.scrollLeft;
-    const totalCardSpace = cardWidth + cardMargin;
+    const totalCardSpace = cardWidth + cardMarginRight;
 
     // Scroll up to the last card visible
     const scrollAmount =
@@ -112,20 +109,20 @@ function HorizontalScrollSection({ title, metaDataList }) {
     <div
       className="HorizontalScrollSection"
       style={{
-        padding: `${containerPadding}px ${containerPadding}px 0 ${containerPadding}px`,
-        // height: `${cardHeight + 2 * containerPadding}px`,
+        padding: `0 ${containerPadding}px`,
       }}
     >
       <h1>{title}</h1>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", position: "relative" }}>
         {isLeftScrollButtonVisible && (
           <Button
             style={{
-              alignSelf: "center",
+              alignSelf: "flex-start",
               position: "absolute",
-              left: 0,
+              left: -32,
+              top: 0,
               zIndex: 1,
-              height: `${cardHeight}px`,
+              height: `${cardHeight * 0.74}px`,
               background:
                 "linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.05))",
             }}
@@ -135,7 +132,6 @@ function HorizontalScrollSection({ title, metaDataList }) {
           >
             <ArrowBackIos
               style={{
-                marginBottom: `${Math.floor(cardHeight * 0.26)}px`,
                 transform: "translateX(5px)",
                 color: theme.palette.primary.light,
               }}
@@ -146,7 +142,6 @@ function HorizontalScrollSection({ title, metaDataList }) {
           className="HorizontalScrollSection__container"
           ref={scrollContainerRef}
           onScroll={() => setScrollButtonVisibility()}
-          style={{ position: "relative" }}
         >
           {metaDataList.map((metaData, index) => (
             <VideoCard
@@ -154,9 +149,6 @@ function HorizontalScrollSection({ title, metaDataList }) {
               title={metaData.title}
               yearStart={metaData.yearStart}
               auth={auth}
-              width={cardWidth}
-              height={cardHeight}
-              margin={cardMargin}
             />
           ))}
         </div>
@@ -165,8 +157,9 @@ function HorizontalScrollSection({ title, metaDataList }) {
             style={{
               alignSelf: "center",
               position: "absolute",
-              right: 0,
-              height: `${cardHeight}px`,
+              right: -32,
+              top: 0,
+              height: `${cardHeight * 0.74}px`,
               background:
                 "linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.05))",
             }}
@@ -176,7 +169,6 @@ function HorizontalScrollSection({ title, metaDataList }) {
           >
             <ArrowForwardIos
               style={{
-                marginBottom: `${Math.floor(cardHeight * 0.26)}px`,
                 color: theme.palette.primary.light,
               }}
             />

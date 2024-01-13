@@ -1,12 +1,13 @@
 import { useEffect, useContext, useState } from "react";
 
+import { AxiosError } from "axios";
+
 import { AuthContext } from "../Auth/AuthContext";
-import HorizontalScrollSection from "../HorizontalScrollSection/HorizontalScrollSection";
+import GridScrollSection from "./GridScrollSection";
+import HorizontalScrollSection from "./HorizontalScrollSection";
 import { getVideoCollectionIndex } from "../Server/ServerInterface";
 import TopNavBar from "../TopNavBar/TopNavBar";
 import "./VideoHomepage.css";
-import { AxiosError } from "axios";
-import { ConstructionOutlined } from "@mui/icons-material";
 
 function VideoHomepage() {
   const { auth, setAuth } = useContext(AuthContext);
@@ -47,14 +48,26 @@ function VideoHomepage() {
   return (
     <div className="VideoHomepage">
       <TopNavBar />
-      <HorizontalScrollSection
-        title="Recently Added"
-        metaDataList={metaDataList
-          .sort((a, b) => {
-            return b.dateAdded - a.dateAdded;
-          })
-          .slice(0, 15)}
-      ></HorizontalScrollSection>
+      <div
+        style={{
+          margin: "32px",
+        }}
+      >
+        <HorizontalScrollSection
+          title="Recently Added"
+          metaDataList={metaDataList
+            .sort((a, b) => {
+              return b.dateAdded - a.dateAdded;
+            })
+            .slice(0, 15)}
+        />
+        <GridScrollSection
+          title="All Videos"
+          metaDataList={metaDataList.sort((a, b) => {
+            return a.title.localeCompare(b.title);
+          })}
+        />
+      </div>
     </div>
   );
 }

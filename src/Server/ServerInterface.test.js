@@ -3,7 +3,7 @@ import { getPepper, getAuthToken } from "../Server/ServerInterface";
 
 jest.mock("axios");
 
-test("getPepper Happy Path", async () => {
+test("getPepper - Happy Path", async () => {
   const serverIP = "123.456.789.0";
   const serverPepper = "$2b$10$EwPepper00000000000000";
 
@@ -45,7 +45,7 @@ test("getPepper - On the blacklist", async () => {
   await expect(getPepper(serverIP)).rejects.toThrow(serverErrMsg);
 });
 
-test("getAuthToken Happy Path", async () => {
+test("getAuthToken - Happy Path", async () => {
   const serverIP = "123.456.789.0";
   const password = "OohPassword";
   const serverPepper = "$2b$10$EwPepper0000000000000000000000000000";

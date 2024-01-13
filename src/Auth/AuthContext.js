@@ -12,12 +12,18 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (auth.pepper) {
       localStorage.setItem("pepper", auth.pepper);
+    } else {
+      localStorage.removeItem("pepper");
     }
     if (auth.token) {
       localStorage.setItem("token", auth.token);
+    } else {
+      localStorage.removeItem("token");
     }
     if (auth.server) {
       localStorage.setItem("server", auth.server);
+    } else {
+      localStorage.removeItem("server");
     }
   }, [auth]);
 

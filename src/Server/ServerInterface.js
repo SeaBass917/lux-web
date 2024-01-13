@@ -123,6 +123,20 @@ export async function getAuthToken(
  * Video Endpoints
  **************************/
 
+export function getVideoThumbnailURL(auth, title) {
+  const ip = auth.server;
+  const port = defaultServerPort;
+  const signedFolder = convertJWTToSignedFolder(auth.token);
+  return `http://${ip}:${port}/public/${signedFolder}/lux-assets/thumbnail/video/${title}.jpg`;
+}
+
+export function getVideoCoverURL(auth, title) {
+  const ip = auth.server;
+  const port = defaultServerPort;
+  const signedFolder = convertJWTToSignedFolder(auth.token);
+  return `http://${ip}:${port}/public/${signedFolder}/lux-assets/covers/video/${title}.jpg`;
+}
+
 export async function getVideoCollectionIndex(
   token,
   serverIP,
@@ -138,31 +152,13 @@ export async function getVideoCollectionIndex(
   );
 
   if (response.status !== 200) {
-    throw new Error(response.data);
+    throw new Error(response.status);
   }
 
   // Parse the response in VideoMetaData objects
   const videoMetaDataList = [];
   for (const metadata of response.data) {
-    videoMetaDataList.push(
-      new VideoMetaData(
-        metadata.title,
-        metadata.nsfw,
-        metadata.studio,
-        metadata.staff,
-        metadata.yearStart,
-        metadata.yearEnd,
-        metadata.producer,
-        metadata.englishLicense,
-        metadata.visitedMal,
-        metadata.director,
-        metadata.tags,
-        metadata.visitedIMDB,
-        metadata.visitedWikipedia,
-        metadata.dateAdded,
-        metadata.description
-      )
-    );
+    videoMetaDataList.push(new VideoMetaData(metadata));
   }
 
   return videoMetaDataList;

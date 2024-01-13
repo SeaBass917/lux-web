@@ -1,36 +1,23 @@
 class VideoMetaData {
-  constructor(
-    title,
-    nsfw,
-    studio,
-    staff,
-    yearStart,
-    yearEnd,
-    producer,
-    englishLicense,
-    visitedMal,
-    director,
-    tags,
-    visitedIMDB,
-    visitedWikipedia,
-    dateAdded,
-    description
-  ) {
-    this.title = title;
-    this.nsfw = nsfw;
-    this.studio = studio;
-    this.staff = staff;
-    this.yearStart = yearStart;
-    this.yearEnd = yearEnd;
-    this.producer = producer;
-    this.englishLicense = englishLicense;
-    this.visitedMal = visitedMal;
-    this.director = director;
-    this.tags = tags;
-    this.visitedIMDB = visitedIMDB;
-    this.visitedWikipedia = visitedWikipedia;
-    this.dateAdded = dateAdded;
-    this.description = description;
+  constructor(metaDataObj) {
+    const tags = metaDataObj["tags"];
+    const dateAdded = metaDataObj["dateAdded"];
+
+    this.title = metaDataObj["title"];
+    this.nsfw = metaDataObj["nsfw"];
+    this.studio = metaDataObj["studio"];
+    this.staff = metaDataObj["staff"];
+    this.yearStart = metaDataObj["yearstart"];
+    this.yearEnd = metaDataObj["yearend"];
+    this.producer = metaDataObj["producer"];
+    this.englishLicense = metaDataObj["english_license"];
+    this.visitedMal = metaDataObj["visited_mal"];
+    this.director = metaDataObj["director"];
+    this.tags = tags ? tags.split(",") : null;
+    this.visitedIMDB = metaDataObj["visited_imdb"];
+    this.visitedWikipedia = metaDataObj["visited_wikipedia"];
+    this.dateAdded = dateAdded ? new Date(dateAdded) : null;
+    this.description = metaDataObj["description"];
   }
 
   /**

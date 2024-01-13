@@ -1,0 +1,11 @@
+.VideoCard__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: transform 5s;
+    will-change: transform;
+  }
+  
+.VideoCard__title:hover {
+    transform: translateX(-100%);
+}

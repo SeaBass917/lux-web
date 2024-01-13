@@ -126,23 +126,18 @@ function LandingPage() {
     const password = textFieldPasswordRef.current.value.trim();
 
     // Get the pepper for hashing the password
+    // Then, get the auth token
     getPepper(address)
       .then((pepper) => {
-        // Store the pepper and server address in the auth context
-        setAuth({
-          pepper: pepper,
-          server: address,
-        });
-
-        // Get the auth token
         getAuthToken(address, password, pepper)
           .then((authToken) => {
+            // Store the pepper token and server address in the auth context
+            // This will trigger a redirect to the video homepage
             setAuth({
+              pepper: pepper,
+              server: address,
               token: authToken,
             });
-
-            // Redirect to the video homepage
-            window.location.href = "/video";
           })
           .catch((error) => {
             setAlertText(error?.response?.data);

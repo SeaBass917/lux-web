@@ -148,6 +148,7 @@ function HorizontalScrollSection({ title, metaDataList }) {
               key={index}
               title={metaData.title}
               yearStart={metaData.yearStart}
+              description={metaData.description}
               auth={auth}
             />
           ))}

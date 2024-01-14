@@ -1,9 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext } from "react";
 import { useTheme } from "@emotion/react";
 
 import { AuthContext } from "../Auth/AuthContext";
-import { VideoCard, cardWidth, cardHeight, cardMargin } from "./VideoCard";
-import { Grid } from "@mui/material";
+import { VideoCard } from "./VideoCard";
 
 function GridScrollSection({ title, metaDataList }) {
   const { auth, setAuth } = useContext(AuthContext);
@@ -41,6 +40,7 @@ function GridScrollSection({ title, metaDataList }) {
               key={index}
               title={metaData.title}
               yearStart={metaData.yearStart}
+              description={metaData.description}
               auth={auth}
             />
           );

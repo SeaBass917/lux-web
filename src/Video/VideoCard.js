@@ -8,7 +8,7 @@ const cardHeight = 300;
 const cardMarginRight = 16;
 const cardMarginBottom = 16;
 
-function VideoCard({ title, yearStart, auth }) {
+function VideoCard({ title, yearStart, description, auth }) {
   const theme = useTheme();
 
   return (
@@ -84,6 +84,14 @@ function VideoCard({ title, yearStart, auth }) {
             </h2>
           )}
         </div>
+      </div>
+      <div
+        className="VideoCard__description"
+        onMouseEnter={(e) => {
+          e.target.scrollTop = 0;
+        }}
+      >
+        <p>{description}</p>
       </div>
     </div>
   );

@@ -154,7 +154,7 @@ export function getVideoCoverURL(auth, title) {
  * @param {String} token JWT token for auth.
  * @param {String} serverIP IP address of the endpoint
  * @param {String} serverPort (Optional) Port of the endpoint (default: 8081)
- * @returns {List>VideoMetaData>} List of VideoMetaData objects representing
+ * @returns {List<VideoMetaData>} List of VideoMetaData objects representing
  *                                each of the available titles.
  *                                Each VideoMetaData object will have limited
  *                                data: title, nsfw, yearstart, description.
@@ -192,7 +192,7 @@ export async function getVideoCollectionIndex(
  * @param {String} token JWT token for auth.
  * @param {String} serverIP IP address of the endpoint
  * @param {String} serverPort (Optional) Port of the endpoint (default: 8081)
- * @returns {List>VideoMetaData>} List of VideoMetaData objects for each of the
+ * @returns {List<VideoMetaData>} List of VideoMetaData objects for each of the
  *                                requested titles.
  */
 export async function getVideoMetaDataByTitle(
@@ -229,4 +229,48 @@ export async function getVideoMetaDataByTitle(
   }
 
   return videoMetaDataList;
+}
+
+/**
+ * Get the list of episodes available for each of the provided titles.
+ * @param {List<String>} titles List of titles whose data we need.
+ * @param {String} token JWT token for auth.
+ * @param {String} serverIP IP address of the endpoint
+ * @param {String} serverPort (Optional) Port of the endpoint (default: 8081)
+ * @returns {List<List<String>>} For each episode, a list of available episodes.
+ */
+export async function getVideoEpisodesByTitle(
+  titles,
+  token,
+  serverIP,
+  serverPort = defaultServerPort
+) {
+  const titlesStr = titles.join(",");
+  const response = await axios.get(
+    `http://${serverIP}:${serverPort}/${endpointVideoEpisodesByTitle}?titles=${titlesStr}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  // NOTE: 207 means the status is per data item. So, we need to check each
+  //       item individually.
+  if (response.status !== 207) {
+    throw new Error(response.status);
+  }
+
+  // Parse the response in VideoMetaData objects
+  const episodeLists = [];
+  for (const statusDataPair of response.data) {
+    if (statusDataPair?.status !== 200) {
+      episodeLists.push(null);
+      continue;
+    }
+    const episodeList = statusDataPair?.data;
+    episodeLists.push(episodeList);
+  }
+
+  return episodeLists;
 }

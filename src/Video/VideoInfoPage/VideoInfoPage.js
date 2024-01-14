@@ -5,6 +5,7 @@ import "./VideoInfoPage.css";
 import { useParams } from "react-router-dom";
 import {
   getVideoCoverURL,
+  getVideoEpisodesByTitle,
   getVideoMetaDataByTitle,
 } from "../../Server/ServerInterface";
 import { AxiosError } from "axios";
@@ -13,6 +14,7 @@ import { PlayArrow } from "@mui/icons-material";
 function VideoInfoPage() {
   const { auth, setAuth } = useContext(AuthContext);
   const [metaData, setMetaData] = useState(null);
+  const [episodeList, setEpisodeList] = useState(null);
   const { title } = useParams();
   const theme = useTheme();
 
@@ -20,16 +22,21 @@ function VideoInfoPage() {
   const coverImgHeight = 600;
   const coverImgBlurRadius = 3;
 
-  // Grab the metadata from the server once we have auth loaded
+  // Grab the metadata and the list of episodes from the server
+  // once we have auth loaded.
   useEffect(() => {
+    // If the user is not logged in, redirect them to the landing page
+    if (auth.token === null) {
+      window.location.href = "/";
+      return;
+    }
+
     getVideoMetaDataByTitle([title], auth.token, auth.server)
       .then((metaDataList) => {
         // If we reach this case, then the server sent bad data
         // on a 200 status code.
-        // For now just go back.
-        // TODO: Redirect to a dedicated server error page.
         if (metaDataList.length === 0) {
-          window.location.href = "/video";
+          window.location.href = "/server-error";
           return;
         }
         setMetaData(metaDataList[0]);
@@ -48,7 +55,43 @@ function VideoInfoPage() {
             window.location.href = "/blacklist";
             return;
           }
+
+          // All other errors, just redirect to the server error page.
           console.error(err);
+          window.location.href = "/server-error";
+          return;
+        }
+      });
+
+    getVideoEpisodesByTitle([title], auth.token, auth.server)
+      .then((episodeLists) => {
+        // If we reach this case, then the server sent bad data
+        // on a 200 status code.
+        if (episodeLists.length === 0) {
+          window.location.href = "/server-error";
+          return;
+        }
+        setEpisodeList(episodeLists[0]);
+      })
+      .catch((err) => {
+        if (err instanceof AxiosError) {
+          const status = err.response?.status;
+          if (status === 401) {
+            setAuth({
+              token: null,
+              server: auth.server,
+              pepper: auth.pepper,
+            });
+            return;
+          } else if (status === 403) {
+            window.location.href = "/blacklist";
+            return;
+          }
+
+          // All other errors, just redirect to the server error page.
+          console.error(err);
+          window.location.href = "/server-error";
+          return;
         }
       });
   }, [auth, title]);

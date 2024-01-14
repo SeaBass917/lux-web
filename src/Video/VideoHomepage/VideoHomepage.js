@@ -15,7 +15,6 @@ function VideoHomepage() {
 
   useEffect(() => {
     // If the user is not logged in, redirect them to the landing page
-    // TODO: Check to see if the token is valid
     if (auth.token === null) {
       window.location.href = "/";
       return;

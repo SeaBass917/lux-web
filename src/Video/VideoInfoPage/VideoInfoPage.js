@@ -211,7 +211,7 @@ function VideoInfoPage() {
       <div className="VideoInfoPage__description">
         <p
           style={{
-            color: theme.palette.text.primary,
+            color: theme.palette.text.secondary,
             fontSize: "20px",
             lineHeight: "1.5",
           }}

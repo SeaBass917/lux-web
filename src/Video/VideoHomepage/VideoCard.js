@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { getVideoCoverURL } from "../Server/ServerInterface";
+import { getVideoCoverURL } from "../../Server/ServerInterface";
 import "./VideoCard.css";
 
 // Constants for the child cards
@@ -24,6 +24,11 @@ function VideoCard({ title, yearStart, description, auth }) {
         flexDirection: "column",
         userSelect: "none",
         marginBottom: `${cardMarginBottom}px`,
+        cursor: "pointer",
+        position: "relative",
+      }}
+      onClick={() => {
+        window.location.href = `/video/${title}`;
       }}
     >
       <img

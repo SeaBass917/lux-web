@@ -4,7 +4,7 @@ import { useTheme } from "@emotion/react";
 import { Button } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
-import { AuthContext } from "../Auth/AuthContext";
+import { AuthContext } from "../../Auth/AuthContext";
 import { VideoCard, cardWidth, cardHeight, cardMarginRight } from "./VideoCard";
 import "./HorizontalScrollSection.css";
 
@@ -54,54 +54,6 @@ function HorizontalScrollSection({ title, metaDataList }) {
     setIsLeftScrollButtonVisible(scrollLeft > 0);
     setIsRightScrollButtonVisible(scrollLeft < scrollWidth - offsetWidth);
   };
-
-  /**
-   * Assign Event Listeners for handling the click and dragging of cards.
-   */
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer) {
-      return;
-    }
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    const handleMouseDown = (e) => {
-      isDown = true;
-      startX = e.pageX - scrollContainer.offsetLeft;
-      scrollLeft = scrollContainer.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-      isDown = false;
-    };
-
-    const handleMouseUp = () => {
-      isDown = false;
-    };
-
-    const handleMouseMove = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - scrollContainer.offsetLeft;
-      const walk = (x - startX) * 1; //scroll-fast
-      scrollContainer.scrollLeft = scrollLeft - walk;
-    };
-
-    scrollContainer.addEventListener("mousedown", handleMouseDown);
-    scrollContainer.addEventListener("mouseleave", handleMouseLeave);
-    scrollContainer.addEventListener("mouseup", handleMouseUp);
-    scrollContainer.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      scrollContainer.removeEventListener("mousedown", handleMouseDown);
-      scrollContainer.removeEventListener("mouseleave", handleMouseLeave);
-      scrollContainer.removeEventListener("mouseup", handleMouseUp);
-      scrollContainer.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
 
   const theme = useTheme();
 

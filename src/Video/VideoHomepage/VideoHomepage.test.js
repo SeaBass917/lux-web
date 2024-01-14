@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import VideoHomepage from "./VideoHomepage";
-import { AuthContext } from "../Auth/AuthContext";
+import { AuthContext } from "../../Auth/AuthContext";
 
 const renderWithAuthContext = (component, authValue) => {
   return {

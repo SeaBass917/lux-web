@@ -2,11 +2,11 @@ import { useEffect, useContext, useState } from "react";
 
 import { AxiosError } from "axios";
 
-import { AuthContext } from "../Auth/AuthContext";
+import { AuthContext } from "../../Auth/AuthContext";
 import GridScrollSection from "./GridScrollSection";
 import HorizontalScrollSection from "./HorizontalScrollSection";
-import { getVideoCollectionIndex } from "../Server/ServerInterface";
-import TopNavBar from "../TopNavBar/TopNavBar";
+import { getVideoCollectionIndex } from "../../Server/ServerInterface";
+import TopNavBar from "../../TopNavBar/TopNavBar";
 import "./VideoHomepage.css";
 
 function VideoHomepage() {

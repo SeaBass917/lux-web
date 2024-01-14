@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useTheme } from "@emotion/react";
 
-import { AuthContext } from "../Auth/AuthContext";
+import { AuthContext } from "../../Auth/AuthContext";
 import { VideoCard } from "./VideoCard";
 
 function GridScrollSection({ title, metaDataList }) {

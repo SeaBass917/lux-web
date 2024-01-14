@@ -1,0 +1,14 @@
+.VideoInfoPage {
+    background-image: linear-gradient(#1A1A22, #23232b, #555564);
+    flex: 1;
+}
+
+.VideoInfoPage__header {
+    margin: 10px 25%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.VideoInfoPage__description {
+    margin: 10px 25%;
+}

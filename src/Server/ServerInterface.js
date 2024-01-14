@@ -123,6 +123,12 @@ export async function getAuthToken(
  * Video Endpoints
  **************************/
 
+/**
+ * Retrieve a url for the specified video's thumbnail art.
+ * @param {String} auth JWT token for auth.
+ * @param {String} title Title of the video.
+ * @returns {String} URL to the thumbnail art for the video.
+ */
 export function getVideoThumbnailURL(auth, title) {
   const ip = auth.server;
   const port = defaultServerPort;
@@ -130,6 +136,12 @@ export function getVideoThumbnailURL(auth, title) {
   return `http://${ip}:${port}/public/${signedFolder}/lux-assets/thumbnail/video/${title}.jpg`;
 }
 
+/**
+ * Retrieve a url for the specified video's cover art.
+ * @param {String} auth JWT token for auth.
+ * @param {String} title Title of the video.
+ * @returns {String} URL to the cover art for the video.
+ */
 export function getVideoCoverURL(auth, title) {
   const ip = auth.server;
   const port = defaultServerPort;
@@ -137,6 +149,16 @@ export function getVideoCoverURL(auth, title) {
   return `http://${ip}:${port}/public/${signedFolder}/lux-assets/covers/video/${title}.jpg`;
 }
 
+/**
+ * Get the video metadata for a given list of titles.
+ * @param {String} token JWT token for auth.
+ * @param {String} serverIP IP address of the endpoint
+ * @param {String} serverPort (Optional) Port of the endpoint (default: 8081)
+ * @returns {List>VideoMetaData>} List of VideoMetaData objects representing
+ *                                each of the available titles.
+ *                                Each VideoMetaData object will have limited
+ *                                data: title, nsfw, yearstart, description.
+ */
 export async function getVideoCollectionIndex(
   token,
   serverIP,
@@ -158,6 +180,51 @@ export async function getVideoCollectionIndex(
   // Parse the response in VideoMetaData objects
   const videoMetaDataList = [];
   for (const metadata of response.data) {
+    videoMetaDataList.push(new VideoMetaData(metadata));
+  }
+
+  return videoMetaDataList;
+}
+
+/**
+ * Get the video metadata for a given list of titles.
+ * @param {List<String>} titles List of titles whose data we need.
+ * @param {String} token JWT token for auth.
+ * @param {String} serverIP IP address of the endpoint
+ * @param {String} serverPort (Optional) Port of the endpoint (default: 8081)
+ * @returns {List>VideoMetaData>} List of VideoMetaData objects for each of the
+ *                                requested titles.
+ */
+export async function getVideoMetaDataByTitle(
+  titles,
+  token,
+  serverIP,
+  serverPort = defaultServerPort
+) {
+  const titlesStr = titles.join(",");
+  const response = await axios.get(
+    `http://${serverIP}:${serverPort}/${endpointVideoMetaDataByTitle}?titles=${titlesStr}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  // NOTE: 207 means the status is per data item. So, we need to check each
+  //       item individually.
+  if (response.status !== 207) {
+    throw new Error(response.status);
+  }
+
+  // Parse the response in VideoMetaData objects
+  const videoMetaDataList = [];
+  for (const statusDataPair of response.data) {
+    if (statusDataPair?.status !== 200) {
+      videoMetaDataList.push(null);
+      continue;
+    }
+    const metadata = statusDataPair?.data;
     videoMetaDataList.push(new VideoMetaData(metadata));
   }
 

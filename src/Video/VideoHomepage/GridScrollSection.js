@@ -5,7 +5,7 @@ import { AuthContext } from "../../Auth/AuthContext";
 import { VideoCard } from "./VideoCard";
 
 function GridScrollSection({ title, metaDataList }) {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   // Constants for the component
   const containerPadding = 32;

@@ -1,6 +1,5 @@
 class VideoMetaData {
   constructor(metaDataObj) {
-    const tags = metaDataObj["tags"];
     const dateAdded = metaDataObj["dateAdded"];
 
     this.title = metaDataObj["title"];
@@ -13,7 +12,7 @@ class VideoMetaData {
     this.englishLicense = metaDataObj["english_license"];
     this.visitedMal = metaDataObj["visited_mal"];
     this.director = metaDataObj["director"];
-    this.tags = tags ? tags.split(",") : null;
+    this.tags = metaDataObj["tags"];
     this.visitedIMDB = metaDataObj["visited_imdb"];
     this.visitedWikipedia = metaDataObj["visited_wikipedia"];
     this.dateAdded = dateAdded ? new Date(dateAdded) : null;

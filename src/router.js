@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import LandingPage from "./LandingPage/LandingPage";
 import VideoHomepage from "./Video/VideoHomepage/VideoHomepage";
 import BlackListLandingPage from "./BlackListLandingPage/BlackListLandingPage";
+import VideoInfoPage from "./Video/VideoInfoPage/VideoInfoPage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/blacklist",
     element: <BlackListLandingPage />,
+  },
+  {
+    path: "/video/:title",
+    element: <VideoInfoPage />,
   },
 ]);
 

@@ -147,25 +147,21 @@ function VideoInfoPage() {
             >
               {title}
             </h1>
-            {metaData && metaData.yearStart && (
-              <h2
-                style={{
-                  color: theme.palette.text.disabled,
-                  marginBottom: "0",
-                  marginLeft: "8px",
-                  transform: "translateY(8px)",
-                }}
-              >
-                ({metaData.yearStart})
-              </h2>
-            )}
+            <h2
+              style={{
+                color: theme.palette.text.disabled,
+                marginBottom: "0",
+                marginLeft: "8px",
+                transform: "translateY(8px)",
+              }}
+            >
+              ({(metaData && metaData.yearStart) || "...."})
+            </h2>
           </div>
           <div>
-            {metaData && metaData.studio && (
-              <h2 style={{ color: theme.palette.text.disabled, margin: "0" }}>
-                {metaData.studio}
-              </h2>
-            )}
+            <h2 style={{ color: theme.palette.text.disabled, margin: "0" }}>
+              {(metaData && metaData.studio) || "..."}
+            </h2>
           </div>
         </div>
         <div
@@ -199,17 +195,15 @@ function VideoInfoPage() {
         </div>
       </div>
       <div className="VideoInfoPage__description">
-        {metaData && metaData.description && (
-          <p
-            style={{
-              color: theme.palette.text.primary,
-              fontSize: "20px",
-              lineHeight: "1.5",
-            }}
-          >
-            {metaData.description}
-          </p>
-        )}
+        <p
+          style={{
+            color: theme.palette.text.primary,
+            fontSize: "20px",
+            lineHeight: "1.5",
+          }}
+        >
+          {(metaData && metaData.description) || "..."}
+        </p>
       </div>
       <div className="VideoInfoPage__episodeSelection"></div>
     </div>

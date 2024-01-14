@@ -1,4 +1,4 @@
-import { Button, useTheme } from "@mui/material";
+import { Button, Chip, ListItem, Paper, useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Auth/AuthContext";
 import "./VideoInfoPage.css";
@@ -10,6 +10,7 @@ import {
 } from "../../Server/ServerInterface";
 import { AxiosError } from "axios";
 import { PlayArrow } from "@mui/icons-material";
+import GenreTag from "../../Tag/Tag";
 
 function VideoInfoPage() {
   const { auth, setAuth } = useContext(AuthContext);
@@ -162,6 +163,19 @@ function VideoInfoPage() {
             <h2 style={{ color: theme.palette.text.disabled, margin: "0" }}>
               {(metaData && metaData.studio) || "..."}
             </h2>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "flex-start",
+              marginTop: "8px",
+            }}
+          >
+            {metaData &&
+              metaData.tags.map((tag, index) => {
+                return <GenreTag key={index} text={tag} />;
+              })}
           </div>
         </div>
         <div

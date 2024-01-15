@@ -11,10 +11,10 @@
 }
 
 .VideoInfoPage__coverArtMain {
-    width: 45%;
+    width: 50%;
     object-fit: cover;
     position: absolute;
-    left: 27.5%;
+    left: 25%;
     z-index: 2;
     margin-top: 48px;
     filter: saturate(115%);
@@ -63,10 +63,11 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-end;
+    margin-left: 16px;
 }
 
 .VideoInfoPage__watchingButton {
-    width: 222px;
+    width: 132px;
 }
 
 .VideoInfoPage__description {

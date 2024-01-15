@@ -21,7 +21,7 @@ function VideoInfoPage() {
   const theme = useTheme();
 
   // Constants for the page
-  const coverImgHeight = 600;
+  const coverImgHeight = 700;
   const coverImgBlurRadius = 2;
 
   // Grab the metadata and the list of episodes from the server
@@ -181,20 +181,26 @@ function VideoInfoPage() {
         </div>
         <div className="VideoInfoPage__watchingButtons">
           <Button
+            sx={{
+              justifyContent: "flex-start",
+            }}
             className="VideoInfoPage__watchingButton"
             variant="contained"
             color="primary"
           >
             <PlayArrow />
-            Continue Watching
+            Continue
           </Button>
           <Button
+            sx={{
+              justifyContent: "flex-start",
+            }}
             className="VideoInfoPage__watchingButton"
             variant="outlined"
             color="primary"
           >
             <PlayArrow />
-            Start From Beginning
+            Start
           </Button>
         </div>
       </div>

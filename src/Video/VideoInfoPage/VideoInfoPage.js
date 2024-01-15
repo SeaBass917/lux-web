@@ -1,4 +1,4 @@
-import { Button, Chip, ListItem, Paper, useTheme } from "@mui/material";
+import { Button, Chip, ListItem, Paper, Stack, useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Auth/AuthContext";
 import "./VideoInfoPage.css";
@@ -22,7 +22,7 @@ function VideoInfoPage() {
 
   // Constants for the page
   const coverImgHeight = 600;
-  const coverImgBlurRadius = 3;
+  const coverImgBlurRadius = 4;
 
   // Grab the metadata and the list of episodes from the server
   // once we have auth loaded.
@@ -102,109 +102,91 @@ function VideoInfoPage() {
     console.log(metaData);
   }, [metaData]);
 
+  /**
+   * Cleans up the episode title by replacing underscores with spaces.
+   * And removing the file extension.
+   * @param {*} episode
+   * @returns
+   */
+  function cleanEpisodeTitle(episode) {
+    // Remove the file extension
+    const parts = episode.replace(/_/g, " ").split(".");
+    if (parts.length > 1) {
+      parts.pop(); // Remove the last element
+      return parts.join(".");
+    }
+    return episode;
+  }
+
   return (
     <div className="VideoInfoPage">
       <TopNavBar />
       <div
-        className="VideoInfoPage__coverArt"
+        className="VideoInfoPage__coverArtBlur"
         style={{
           height: `${coverImgHeight}px`,
           background: `url("${getVideoCoverURL(auth, title)}")`,
-          width: "100%",
-          objectFit: "cover",
-          backgroundColor: "rgba(255, 255, 255, .55)",
           filter: `blur(${coverImgBlurRadius}px)`,
-          position: "absolute",
-          zIndex: 0,
-          marginTop: `${2 * coverImgBlurRadius}px`,
         }}
       ></div>
       <img
+        className="VideoInfoPage__coverArtMain"
         src={getVideoCoverURL(auth, title)}
         alt={`Cover art depicting ${title}.`}
         style={{
-          height: `${coverImgHeight + 4 * coverImgBlurRadius}px`,
-          width: "50%",
-          objectFit: "cover",
-          position: "absolute",
-          left: "25%",
-          zIndex: 2,
+          height: `${coverImgHeight + 3 * coverImgBlurRadius}px`,
+          transform: `translateY(-${coverImgBlurRadius}px)`,
         }}
       />
       <div
+        className="VideoInfoPage__coverArtSpacer"
         style={{
           height: `${coverImgHeight + 2 * coverImgBlurRadius}px`,
-          backgroundColor: "rgba(255, 255, 255, 0.15)",
-          zIndex: 1,
-          position: "relative",
         }}
       ></div>
       <div className="VideoInfoPage__header">
         <div>
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
+          <div className="VideoInfoPage__title">
             <h1
-              style={{ color: theme.palette.text.primary, marginBottom: "0" }}
+              id="VideoInfoPage__titleText"
+              style={{ color: theme.palette.text.primary }}
             >
               {title}
             </h1>
             <h2
+              id="VideoInfoPage__yearText"
               style={{
                 color: theme.palette.text.disabled,
-                marginBottom: "0",
-                marginLeft: "8px",
-                transform: "translateY(8px)",
               }}
             >
               ({(metaData && metaData.yearStart) || "...."})
             </h2>
           </div>
-          <div>
-            <h2 style={{ color: theme.palette.text.disabled, margin: "0" }}>
+          <div className="VideoInfoPage__studio">
+            <h2 style={{ color: theme.palette.text.disabled }}>
               {(metaData && metaData.studio) || "..."}
             </h2>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "flex-start",
-              marginTop: "8px",
-            }}
-          >
+          <div className="VideoInfoPage__tags">
             {metaData &&
               metaData.tags.map((tag, index) => {
                 return <GenreTag key={index} text={tag} />;
               })}
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-            alignItems: "flex-end",
-          }}
-        >
+        <div className="VideoInfoPage__watchingButtons">
           <Button
+            className="VideoInfoPage__watchingButton"
             variant="contained"
             color="primary"
-            style={{
-              width: "222px",
-            }}
           >
             <PlayArrow />
             Continue Watching
           </Button>
           <Button
+            className="VideoInfoPage__watchingButton"
             variant="outlined"
             color="primary"
-            style={{
-              width: "222px",
-            }}
           >
             <PlayArrow />
             Start From Beginning
@@ -215,14 +197,43 @@ function VideoInfoPage() {
         <p
           style={{
             color: theme.palette.text.secondary,
-            fontSize: "20px",
-            lineHeight: "1.5",
           }}
         >
           {(metaData && metaData.description) || "..."}
         </p>
       </div>
-      <div className="VideoInfoPage__episodeSelection"></div>
+      <div className="VideoInfoPage__episodeSelection">
+        <Stack spacing={2}>
+          {episodeList &&
+            episodeList.map((episode, index) => {
+              return (
+                <Paper
+                  className="VideoInfoPage__episodeCard"
+                  key={index}
+                  elevation={3}
+                  style={{
+                    backgroundColor: theme.palette.secondary.main,
+                  }}
+                >
+                  <Button variant="outlined" color="primary">
+                    <PlayArrow />
+                  </Button>
+                  <h4
+                    className="VideoInfoPage__episodeTitle"
+                    style={{
+                      color: theme.palette.text.secondary,
+                    }}
+                    onClick={() => {
+                      window.location.href = `/watch/${title}/${episode}`;
+                    }}
+                  >
+                    {cleanEpisodeTitle(episode)}
+                  </h4>
+                </Paper>
+              );
+            })}
+        </Stack>
+      </div>
     </div>
   );
 }

@@ -3,12 +3,95 @@
     flex: 1;
 }
 
+.VideoInfoPage__coverArtBlur {
+    width: 100%;
+    object-fit: cover;
+    background-color: rgba(255, 255, 255, .55);
+    position: absolute;
+    z-index: 0;
+    margin-top: 64px;
+}
+
+.VideoInfoPage__coverArtMain {
+    width: 50%;
+    object-fit: cover;
+    position: absolute;
+    left: 25%;
+    z-index: 2;
+    margin-top: 64px;
+}
+
+.VideoInfoPage__coverArtSpacer {
+    background-color: rgba(255, 255, 255, 0.15);
+    z-index: 1;
+    position: relative;
+    margin-top: 64px;
+}
+
 .VideoInfoPage__header {
     margin: 10px 25%;
     display: flex;
     justify-content: space-between;
 }
 
+.VideoInfoPage__title {
+    display: flex;
+}
+
+.VideoInfoPage__title #VideoInfoPage__titleText {
+    margin-bottom: 0;
+}
+
+.VideoInfoPage__title #VideoInfoPage__yearText {
+    margin-bottom: 0;
+    margin-left: 8px;
+    transform: translateY(8px);
+}
+
+.VideoInfoPage__studio * {
+    margin: 0;
+}
+
+.VideoInfoPage__tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 8px;
+}
+
+.VideoInfoPage__watchingButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-end;
+}
+
+.VideoInfoPage__watchingButton {
+    width: 222px;
+}
+
 .VideoInfoPage__description {
     margin: 10px 25%;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.VideoInfoPage__episodeSelection {
+    margin: 0 25%;
+}
+
+.VideoInfoPage__episodeCard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.VideoInfoPage__episodeTitle {
+    margin: 0 8px;
+    cursor: pointer;
+}
+
+.VideoInfoPage__episodeTitle:hover {
+    text-decoration: underline;
 }

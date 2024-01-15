@@ -22,7 +22,7 @@ function VideoInfoPage() {
 
   // Constants for the page
   const coverImgHeight = 600;
-  const coverImgBlurRadius = 4;
+  const coverImgBlurRadius = 2;
 
   // Grab the metadata and the list of episodes from the server
   // once we have auth loaded.
@@ -125,8 +125,12 @@ function VideoInfoPage() {
         className="VideoInfoPage__coverArtBlur"
         style={{
           height: `${coverImgHeight}px`,
-          background: `url("${getVideoCoverURL(auth, title)}")`,
-          filter: `blur(${coverImgBlurRadius}px)`,
+          background: `url("${getVideoCoverURL(
+            auth,
+            title
+          )}") no-repeat center center`,
+          backgroundSize: "cover",
+          filter: `blur(${coverImgBlurRadius}px) saturate(90%)`,
         }}
       ></div>
       <img
@@ -141,7 +145,8 @@ function VideoInfoPage() {
       <div
         className="VideoInfoPage__coverArtSpacer"
         style={{
-          height: `${coverImgHeight + 2 * coverImgBlurRadius}px`,
+          height: `${coverImgHeight + 3 * coverImgBlurRadius}px`,
+          transform: `translateY(-${coverImgBlurRadius}px)`,
         }}
       ></div>
       <div className="VideoInfoPage__header">

@@ -5,27 +5,26 @@
 
 .VideoInfoPage__coverArtBlur {
     width: 100%;
-    object-fit: cover;
-    background-color: rgba(255, 255, 255, .55);
     position: absolute;
     z-index: 0;
-    margin-top: 64px;
+    margin-top: 48px;
 }
 
 .VideoInfoPage__coverArtMain {
-    width: 50%;
+    width: 45%;
     object-fit: cover;
     position: absolute;
-    left: 25%;
+    left: 27.5%;
     z-index: 2;
-    margin-top: 64px;
+    margin-top: 48px;
+    filter: saturate(115%);
 }
 
 .VideoInfoPage__coverArtSpacer {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.095);
     z-index: 1;
     position: relative;
-    margin-top: 64px;
+    margin-top: 48px;
 }
 
 .VideoInfoPage__header {

@@ -1,4 +1,4 @@
-import { Button, Chip, ListItem, Paper, Stack, useTheme } from "@mui/material";
+import { Button, Paper, Stack, useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Auth/AuthContext";
 import "./VideoInfoPage.css";

@@ -17,7 +17,7 @@ function VideoInfoPage() {
   const { auth, setAuth } = useContext(AuthContext);
   const [metaData, setMetaData] = useState(null);
   const [episodeList, setEpisodeList] = useState(null);
-  const { title } = useParams();
+  const { seriesTitle } = useParams();
   const theme = useTheme();
 
   // Constants for the page
@@ -33,7 +33,7 @@ function VideoInfoPage() {
       return;
     }
 
-    getVideoMetaDataByTitle([title], auth.token, auth.server)
+    getVideoMetaDataByTitle([seriesTitle], auth.token, auth.server)
       .then((metaDataList) => {
         // If we reach this case, then the server sent bad data
         // on a 200 status code.
@@ -65,7 +65,7 @@ function VideoInfoPage() {
         }
       });
 
-    getVideoEpisodesByTitle([title], auth.token, auth.server)
+    getVideoEpisodesByTitle([seriesTitle], auth.token, auth.server)
       .then((episodeLists) => {
         // If we reach this case, then the server sent bad data
         // on a 200 status code.
@@ -96,7 +96,7 @@ function VideoInfoPage() {
           return;
         }
       });
-  }, [auth, title]);
+  }, [auth, seriesTitle]);
 
   useEffect(() => {
     console.log(metaData);
@@ -121,34 +121,36 @@ function VideoInfoPage() {
   return (
     <div className="VideoInfoPage">
       <TopNavBar />
-      <div
-        className="VideoInfoPage__coverArtBlur"
-        style={{
-          height: `${coverImgHeight}px`,
-          background: `url("${getVideoCoverURL(
-            auth,
-            title
-          )}") no-repeat center center`,
-          backgroundSize: "cover",
-          filter: `blur(${coverImgBlurRadius}px) saturate(90%)`,
-        }}
-      ></div>
-      <img
-        className="VideoInfoPage__coverArtMain"
-        src={getVideoCoverURL(auth, title)}
-        alt={`Cover art depicting ${title}.`}
-        style={{
-          height: `${coverImgHeight + 3 * coverImgBlurRadius}px`,
-          transform: `translateY(-${coverImgBlurRadius}px)`,
-        }}
-      />
-      <div
-        className="VideoInfoPage__coverArtSpacer"
-        style={{
-          height: `${coverImgHeight + 3 * coverImgBlurRadius}px`,
-          transform: `translateY(-${coverImgBlurRadius}px)`,
-        }}
-      ></div>
+      <div className="VideoInfoPage__coverArt">
+        <div
+          className="VideoInfoPage__coverArtBlur"
+          style={{
+            height: `${coverImgHeight}px`,
+            background: `url("${getVideoCoverURL(
+              auth,
+              seriesTitle
+            )}") no-repeat center center`,
+            backgroundSize: "cover",
+            filter: `blur(${coverImgBlurRadius}px) saturate(90%)`,
+          }}
+        ></div>
+        <img
+          className="VideoInfoPage__coverArtMain"
+          src={getVideoCoverURL(auth, seriesTitle)}
+          alt={`Cover art depicting ${seriesTitle}.`}
+          style={{
+            height: `${coverImgHeight + 3 * coverImgBlurRadius}px`,
+            transform: `translateY(-${coverImgBlurRadius}px)`,
+          }}
+        />
+        <div
+          className="VideoInfoPage__coverArtSpacer"
+          style={{
+            height: `${coverImgHeight + 3 * coverImgBlurRadius}px`,
+            transform: `translateY(-${coverImgBlurRadius}px)`,
+          }}
+        ></div>
+      </div>
       <div className="VideoInfoPage__header">
         <div>
           <div className="VideoInfoPage__title">
@@ -156,7 +158,7 @@ function VideoInfoPage() {
               id="VideoInfoPage__titleText"
               style={{ color: theme.palette.text.primary }}
             >
-              {title}
+              {seriesTitle}
             </h1>
             <h2
               id="VideoInfoPage__yearText"
@@ -235,7 +237,7 @@ function VideoInfoPage() {
                       color: theme.palette.text.secondary,
                     }}
                     onClick={() => {
-                      window.location.href = `/watch/${title}/${episode}`;
+                      window.location.href = `/video/${seriesTitle}/${episode}`;
                     }}
                   >
                     {cleanEpisodeTitle(episode)}

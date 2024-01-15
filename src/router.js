@@ -8,6 +8,7 @@ import VideoInfoPage from "./Video/VideoInfoPage/VideoInfoPage";
 import MangaHomepage from "./Manga/MangaHomepage/MangaHomepage";
 import MusicHomepage from "./Music/MusicHomepage/MusicHomepage";
 import ImageHomepage from "./Image/ImageHomepage/ImageHomepage";
+import VideoPlayerPage from "./Video/VideoPlayerPage/VideoPlayerPage";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,12 @@ const router = createBrowserRouter([
     element: <ServerErrorLandingPage />,
   },
   {
-    path: "/video/:title",
+    path: "/video/:seriesTitle",
     element: <VideoInfoPage />,
+  },
+  {
+    path: "/video/:seriesTitle/:episodeTitle",
+    element: <VideoPlayerPage />,
   },
 ]);
 

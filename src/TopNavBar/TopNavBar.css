@@ -19,6 +19,10 @@
   margin-right: 20px;
 }
 
+#logo {
+  cursor: pointer;
+}
+
 #logoImg {
   width: 50px;
   height: 50px;
@@ -26,6 +30,7 @@
 }
 #logoText {
   color: #C5A0FC;
+  user-select: none;
 }
 
 .TopNavBar h1, h2, h3, h4 {
@@ -37,6 +42,8 @@
   align-items: flex-end;
   justify-content: flex-end;
   border-bottom: 5px solid #C5A0FC;
+  cursor: pointer;
+  user-select: none;
 }
 .NavTab div {
   display: flex;

@@ -5,6 +5,9 @@ import VideoHomepage from "./Video/VideoHomepage/VideoHomepage";
 import BlackListLandingPage from "./ErrorLandingPages/BlackListLandingPage";
 import ServerErrorLandingPage from "./ErrorLandingPages/ServerErrorLandingPage";
 import VideoInfoPage from "./Video/VideoInfoPage/VideoInfoPage";
+import MangaHomepage from "./Manga/MangaHomepage/MangaHomepage";
+import MusicHomepage from "./Music/MusicHomepage/MusicHomepage";
+import ImageHomepage from "./Image/ImageHomepage/ImageHomepage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +17,18 @@ const router = createBrowserRouter([
   {
     path: "/video",
     element: <VideoHomepage />,
+  },
+  {
+    path: "/manga",
+    element: <MangaHomepage />,
+  },
+  {
+    path: "/music",
+    element: <MusicHomepage />,
+  },
+  {
+    path: "/images",
+    element: <ImageHomepage />,
   },
   {
     path: "/blacklist",

@@ -11,6 +11,7 @@ import {
 import { AxiosError } from "axios";
 import { PlayArrow } from "@mui/icons-material";
 import GenreTag from "../../Tag/Tag";
+import TopNavBar from "../../TopNavBar/TopNavBar";
 
 function VideoInfoPage() {
   const { auth, setAuth } = useContext(AuthContext);
@@ -103,6 +104,7 @@ function VideoInfoPage() {
 
   return (
     <div className="VideoInfoPage">
+      <TopNavBar />
       <div
         className="VideoInfoPage__coverArt"
         style={{
@@ -114,13 +116,14 @@ function VideoInfoPage() {
           filter: `blur(${coverImgBlurRadius}px)`,
           position: "absolute",
           zIndex: 0,
+          marginTop: `${2 * coverImgBlurRadius}px`,
         }}
       ></div>
       <img
         src={getVideoCoverURL(auth, title)}
         alt={`Cover art depicting ${title}.`}
         style={{
-          height: `${coverImgHeight + 2 * coverImgBlurRadius}px`,
+          height: `${coverImgHeight + 4 * coverImgBlurRadius}px`,
           width: "50%",
           objectFit: "cover",
           position: "absolute",

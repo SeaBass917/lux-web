@@ -53,7 +53,13 @@ function VideoHomepage() {
         }}
       >
         <HorizontalScrollSection
-          title="Recently Added"
+          title="Recently Watched"
+          // TODO: This is a faux list for spacing right now, recently watched
+          // should be implemented in the future.
+          metaDataList={metaDataList.slice(0, 15)}
+        />
+        <HorizontalScrollSection
+          title="What's new"
           metaDataList={metaDataList
             .sort((a, b) => {
               return b.dateAdded - a.dateAdded;

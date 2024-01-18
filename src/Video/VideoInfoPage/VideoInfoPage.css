@@ -73,23 +73,3 @@
     font-size: 20px;
     line-height: 1.5;
 }
-
-.VideoInfoPage__episodeSelection {
-    margin: 0 25%;
-}
-
-.VideoInfoPage__episodeCard {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 8px 16px;
-}
-
-.VideoInfoPage__episodeTitle {
-    margin: 0 8px;
-    cursor: pointer;
-}
-
-.VideoInfoPage__episodeTitle:hover {
-    text-decoration: underline;
-}

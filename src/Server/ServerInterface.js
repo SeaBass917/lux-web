@@ -125,11 +125,12 @@ export async function getAuthToken(
 
 /**
  * Retrieve a url for the specified video's thumbnail art.
- * @param {String} auth JWT token for auth.
+ * @param {AuthContext} auth Contains token, server.
  * @param {String} title Title of the video.
  * @returns {String} URL to the thumbnail art for the video.
  */
 export function getVideoThumbnailURL(auth, title) {
+  if (!auth) return null;
   const ip = auth.server;
   const port = defaultServerPort;
   const signedFolder = convertJWTToSignedFolder(auth.token);
@@ -138,15 +139,31 @@ export function getVideoThumbnailURL(auth, title) {
 
 /**
  * Retrieve a url for the specified video's cover art.
- * @param {String} auth JWT token for auth.
+ * @param {AuthContext} auth Contains token, server.
  * @param {String} title Title of the video.
  * @returns {String} URL to the cover art for the video.
  */
 export function getVideoCoverURL(auth, title) {
+  if (!auth) return null;
   const ip = auth.server;
   const port = defaultServerPort;
   const signedFolder = convertJWTToSignedFolder(auth.token);
   return `http://${ip}:${port}/public/${signedFolder}/lux-assets/covers/video/${title}.jpg`;
+}
+
+/**
+ * Retrieve a url for the specified video.
+ * @param {AuthContext} auth Contains token, server.
+ * @param {String} seriesTitle Title of the series.
+ * @param {String} episodeTitle Title of the episode.
+ * @returns {String} URL to the video, or null if auth is null.
+ */
+export function getVideoURL(auth, seriesTitle, episodeTitle) {
+  if (!auth) return null;
+  const ip = auth.server;
+  const port = defaultServerPort;
+  const signedFolder = convertJWTToSignedFolder(auth.token);
+  return `http://${ip}:${port}/public/${signedFolder}/${pathVideo}/${seriesTitle}/${episodeTitle}`;
 }
 
 /**

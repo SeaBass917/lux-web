@@ -6,6 +6,7 @@ import { PlayArrow } from "@mui/icons-material";
 import { AxiosError } from "axios";
 
 import { AuthContext } from "../../Auth/AuthContext";
+import { EpisodeContext } from "../VideoEpisodeList/EpisodeListContext";
 import {
   getVideoCoverURL,
   getVideoMetaDataByTitle,
@@ -20,10 +21,15 @@ function VideoInfoPage() {
   const [metaData, setMetaData] = useState(null);
   const { seriesTitle } = useParams();
   const theme = useTheme();
+  const [episodeList, setEpisodeList] = useState(null);
 
   // Constants for the page
   const coverImgHeight = 700;
   const coverImgBlurRadius = 2;
+
+  useEffect(() => {
+    console.log(episodeList);
+  }, [episodeList]);
 
   // Grab the metadata and the list of episodes from the server
   // once we have auth loaded.
@@ -149,6 +155,10 @@ function VideoInfoPage() {
             className="VideoInfoPage__watchingButton"
             variant="outlined"
             color="primary"
+            onClick={() => {
+              if (!episodeList || episodeList.length == 0) return;
+              window.location.href = `/video/${seriesTitle}/${episodeList[0]}`;
+            }}
           >
             <PlayArrow />
             Start
@@ -164,7 +174,9 @@ function VideoInfoPage() {
           {(metaData && metaData.description) || "..."}
         </p>
       </div>
-      <VideoEpisodeList />
+      <EpisodeContext.Provider value={{ episodeList, setEpisodeList }}>
+        <VideoEpisodeList />
+      </EpisodeContext.Provider>
     </div>
   );
 }

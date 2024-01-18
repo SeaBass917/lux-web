@@ -6,6 +6,7 @@ import { PlayArrow } from "@mui/icons-material";
 import { AxiosError } from "axios";
 
 import { AuthContext } from "../../Auth/AuthContext";
+import { EpisodeContext } from "../VideoEpisodeList/EpisodeListContext";
 import { getVideoEpisodesByTitle } from "../../Server/ServerInterface";
 import "./VideoEpisodeList.css";
 
@@ -27,7 +28,7 @@ function cleanEpisodeTitle(episode) {
 
 function VideoEpisodeList() {
   const { auth, setAuth } = useContext(AuthContext);
-  const [episodeList, setEpisodeList] = useState(null);
+  const { episodeList, setEpisodeList } = useContext(EpisodeContext);
 
   const { seriesTitle } = useParams();
   const theme = useTheme();
@@ -49,6 +50,7 @@ function VideoEpisodeList() {
           window.location.href = "/server-error";
           return;
         }
+
         setEpisodeList(episodeLists[0]);
       })
       .catch((err) => {

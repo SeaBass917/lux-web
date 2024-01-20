@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Deployment
 
 `npm run build`
-`pm2 serve build/ 3000 --name "lux-web"`
+`pm2 serve build/ 3000 --name "lux-web" --spa`
 
 ## Available Scripts
 

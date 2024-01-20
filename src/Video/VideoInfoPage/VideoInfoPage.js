@@ -71,7 +71,7 @@ function VideoInfoPage() {
           return;
         }
       });
-  }, [auth, seriesTitle]);
+  }, [auth, setAuth, seriesTitle]);
 
   return (
     <div className="VideoInfoPage">
@@ -156,7 +156,7 @@ function VideoInfoPage() {
             variant="outlined"
             color="primary"
             onClick={() => {
-              if (!episodeList || episodeList.length == 0) return;
+              if (!episodeList || episodeList.length === 0) return;
               window.location.href = `/video/${seriesTitle}/${episodeList[0]}`;
             }}
           >

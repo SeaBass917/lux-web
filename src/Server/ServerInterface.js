@@ -1,5 +1,6 @@
 import axios from "axios";
-import { hash, compare } from "bcryptjs";
+// eslint-disable-next-line
+import { hash } from "bcryptjs-react";
 import VideoMetaData from "../Video/VideoMetaData";
 
 /**************************
@@ -16,33 +17,33 @@ const defaultServerPort = "8081";
 const endpointGetPepper = "auth/pepper";
 const endpointGetAuthToken = "auth/auth-token";
 
-const endpointMangaCollectionIndex = "manga/collection-index";
-const endpointMangaMetaDataByTitle = "manga/metadata";
-const endpointMangaChaptersByTitle = "manga/chapters";
+// const endpointMangaCollectionIndex = "manga/collection-index";
+// const endpointMangaMetaDataByTitle = "manga/metadata";
+// const endpointMangaChaptersByTitle = "manga/chapters";
 
 const endpointVideoCollectionIndex = "video/collection-index";
 const endpointVideoMetaDataByTitle = "video/metadata";
 const endpointVideoEpisodesByTitle = "video/episodes";
-const endpointSubtitleSelections = "video/subtitle-selections";
-const endpointSubtitlesChewieFmt = "video/subtitles-chewie";
+// const endpointSubtitleSelections = "video/subtitle-selections";
+// const endpointSubtitlesChewieFmt = "video/subtitles-chewie";
 
 // Known Paths
-const pathManga = "manga";
+// const pathManga = "manga";
 const pathVideo = "video";
-const pathMusic = "music";
-const pathImage = "images";
-const pathSubtitles = "subtitles";
-const pathMangaThumbnail = "lux-assets/thumbnails/manga/";
-const pathMangaCoverArt = "lux-assets/covers/manga/";
-const pathVideoThumbnail = "lux-assets/thumbnails/video/";
-const pathVideoCoverArt = "lux-assets/covers/video/";
-const pathMusicThumbnail = "lux-assets/thumbnails/music/";
-const pathMusicCoverArt = "lux-assets/covers/music/";
+// const pathMusic = "music";
+// const pathImage = "images";
+// const pathSubtitles = "subtitles";
+// const pathMangaThumbnail = "lux-assets/thumbnails/manga/";
+// const pathMangaCoverArt = "lux-assets/covers/manga/";
+// const pathVideoThumbnail = "lux-assets/thumbnails/video/";
+// const pathVideoCoverArt = "lux-assets/covers/video/";
+// const pathMusicThumbnail = "lux-assets/thumbnails/music/";
+// const pathMusicCoverArt = "lux-assets/covers/music/";
 
 // TODO: This is jank af. Have this be a local resource
 //       The reason it is currently not, is because the list is a list of
 //       Network images. So, you'd need to find some common class, etc...
-const endpointBlackPng = "public/assets/images/_black.png";
+// const endpointBlackPng = "public/assets/images/_black.png";
 
 /**
  * Convert a JWT to a signed folder used on the server side.
@@ -76,7 +77,7 @@ export async function getPepper(serverIP, serverPort = defaultServerPort) {
     }
   );
 
-  if (response.status != 200) {
+  if (response.status !== 200) {
     throw new Error(response.data);
   }
 

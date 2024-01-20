@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Paper, Stack, useTheme } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
@@ -74,7 +74,7 @@ function VideoEpisodeList() {
           return;
         }
       });
-  }, [auth, seriesTitle]);
+  }, [auth, setAuth, seriesTitle, setEpisodeList]);
 
   return (
     <div className="VideoEpisodeList">

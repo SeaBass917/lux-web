@@ -42,7 +42,7 @@ function VideoHomepage() {
         }
         console.error(err);
       });
-  }, [auth]);
+  }, [auth, setAuth]);
 
   return (
     <div className="VideoHomepage">

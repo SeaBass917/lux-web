@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deployment
+
+`npm run build`
+`pm2 serve build/ 3000 --name "lux-web"`
+
 ## Available Scripts
 
 In the project directory, you can run:

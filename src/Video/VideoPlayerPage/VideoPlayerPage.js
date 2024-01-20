@@ -1,4 +1,4 @@
-import { useContext, useRef, useState, createContext, useEffect } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Button, Collapse, useTheme } from "@mui/material";
@@ -15,9 +15,9 @@ import {
 import "./VideoPlayerPage.css";
 
 function VideoPlayerPage() {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const { seriesTitle, episodeTitle } = useParams();
-  const [playing, setPlaying] = useState(true);
+  // const [playing, setPlaying] = useState(true);
   const player = useRef();
   const [episodeList, setEpisodeList] = useState(null);
   const [currIndex, setCurrIndex] = useState(-1);
@@ -35,7 +35,7 @@ function VideoPlayerPage() {
         }
       }
     }
-  }, [episodeList]);
+  }, [episodeList, episodeTitle]);
 
   /**
    *  Returns true if the previous button should be enabled.
@@ -72,7 +72,7 @@ function VideoPlayerPage() {
       <ReactPlayer
         url={getVideoURL(auth, seriesTitle, episodeTitle)}
         controls={true}
-        playing={playing}
+        playing={true}
         width={"50%"}
         height={"auto"}
         volume={0.05}

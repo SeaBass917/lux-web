@@ -140,11 +140,13 @@ function LandingPage() {
             });
           })
           .catch((error) => {
-            setAlertText(error?.response?.data);
+            console.error(error);
+            setAlertText("Failed to connect to server.");
           });
       })
       .catch((error) => {
-        setAlertText(error.message);
+        console.error(error);
+        setAlertText("Failed to connect to server.");
       });
   }
 

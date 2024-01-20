@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useTheme } from "@emotion/react";
 
 import { Button } from "@mui/material";
@@ -14,7 +14,7 @@ function HorizontalScrollSection({ title, metaDataList }) {
     useState(false);
   const [isRightScrollButtonVisible, setIsRightScrollButtonVisible] =
     useState(true);
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   // Constants for the component
   const containerPadding = 32;

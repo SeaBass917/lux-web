@@ -13,18 +13,18 @@ const serverTimeoutSeconds = 5;
 const defaultServerPort = "8081";
 
 // Endpoints
-const endpointGetPepper = "GetPepper";
-const endpointGetAuthToken = "GetAuthToken";
+const endpointGetPepper = "auth/pepper";
+const endpointGetAuthToken = "auth/auth-token";
 
-const endpointMangaCollectionIndex = "GetMangaCollectionIndex";
-const endpointMangaMetaDataByTitle = "GetMangaMetaDataByTitle";
-const endpointMangaChaptersByTitle = "GetMangaChaptersByTitle";
+const endpointMangaCollectionIndex = "manga/collection-index";
+const endpointMangaMetaDataByTitle = "manga/metadata";
+const endpointMangaChaptersByTitle = "manga/chapters";
 
-const endpointVideoCollectionIndex = "GetVideoCollectionIndex";
-const endpointVideoMetaDataByTitle = "GetVideoMetaDataByTitle";
-const endpointVideoEpisodesByTitle = "GetVideoEpisodesByTitle";
-const endpointSubtitleSelections = "GetSubtitleSelectionsForEpisode";
-const endpointSubtitlesChewieFmt = "GetSubtitlesChewieFmt";
+const endpointVideoCollectionIndex = "video/collection-index";
+const endpointVideoMetaDataByTitle = "video/metadata";
+const endpointVideoEpisodesByTitle = "video/episodes";
+const endpointSubtitleSelections = "video/subtitle-selections";
+const endpointSubtitlesChewieFmt = "video/subtitles-chewie";
 
 // Known Paths
 const pathManga = "manga";

@@ -91,6 +91,12 @@ function VideoPlayerPage() {
           },
         }}
       />
+      {/* <video controls autoPlay muted>
+        <source
+          src={getVideoURL(auth, seriesTitle, episodeTitle)}
+          type="video/mp4"
+        />
+      </video> */}
       <div
         className="VideoPlayerPage__navButtonContainer"
         style={{
